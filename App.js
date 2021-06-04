@@ -2,6 +2,9 @@
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View, ImageBackground} from 'react-native';
 
+
+
+
 export default class App extends React.Component{ 
   constructor(props){
     super(props);
@@ -30,7 +33,6 @@ export default class App extends React.Component{
 
   var {items} = this.state
 
-  
     return ( 
       <View className= "container"> 
            {items.map (items => (
