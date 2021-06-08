@@ -19,12 +19,12 @@ export default class ScreenImportarTarjetas extends Component {
 
       }
     
-      async traerUsuarios(usuariosImportados, results) { 
+      async traerUsuarios() { 
         try { 
           const jsonUsers = await AsyncStorage.getItem("Usuarios");
           const usuariosImportados = Json.parse(jsonUsers);
           this.setState({items: usuariosImportados})
-          return(jsonUsers)
+        
         }
         catch(e){ 
           alert("No pudimos cargar los usuarios");
