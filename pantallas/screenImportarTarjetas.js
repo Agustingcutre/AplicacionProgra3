@@ -2,8 +2,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View, ImageBackground, TouchableOpacity} from 'react-native';
 import {getData} from '../src/api/usuarios'
+import { storeData} from './importarTarjetas'; 
 
-export class ScreenImportarTarjetas extends Component {
+export default class ScreenImportarTarjetas extends Component {
 
     constructor(props){
         super(props);
@@ -13,11 +14,16 @@ export class ScreenImportarTarjetas extends Component {
           
         }
       }
+      componentDidMount() {
+        this.traerUsuarios()
+
+      }
     
-      async getData() { 
+      async traerUsuarios(usuariosImportados, results) { 
         try { 
           const jsonUsers = await AsyncStorage.getItem("Usuarios");
-          this.setState({usuariosImportados: Json.parse(jsonUsers)});
+          const usuariosImportados = Json.parse(jsonUsers);
+          this.setState({items: usuariosImportados})
           return(jsonUsers)
         }
         catch(e){ 
@@ -26,21 +32,46 @@ export class ScreenImportarTarjetas extends Component {
         }
       }
 
+      
+  
     
     
 
     render(){
-      const mostrarUsuarios = this.state.usuariosImportados.map(items => 
-       <Text> {items.name.title} {items.name.first} {items.name.last}</Text>
-        )
-
-        var {items} = this.state
-        
+      var {items} = this.state
+           
         return(
+          <View style={styles.container}>  
 
-            <TouchableOpacity onPress={this.getData.bind(this)}> Mostramos los valores importados</TouchableOpacity>
+                
+                <TouchableOpacity style={styles.guardarItems} onPress={ () => this.setState({items:[]})} > 
+                          <Text style={styles.guardarItems}>ELIMINAR ITEMS</Text>              
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.guardarItems} onPress={ () => this.setState({})} > 
+                          <Text style={styles.guardarItems}>RECUPERAR ITEMS</Text>              
+                </TouchableOpacity>
+
+                
+
+          </View>
+          
+           
 
            
         )
     }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    display: "flex",
+    marginTop: 50,
+    justifyContent: 'center',
+    alignItems: "center",
+    margin: 5,
+    backgroundColor: "purple"
+  },
+
+
+});

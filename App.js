@@ -15,7 +15,7 @@ import { FlatList, StyleSheet, Text, View, ImageBackground} from 'react-native';
 
   
     return ( 
-      <ImportarTarjetas/>
+      <ScreenImportarTarjetas/>
       
     )
   }
